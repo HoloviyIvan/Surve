@@ -3,10 +3,11 @@ using UnityEngine;
 public sealed class GameEntryPoint : MonoBehaviour
 {
     [Header("Prefabs")]
+    [SerializeField] private Player playerPrefab;
     [SerializeField] private Enemy enemyPrefab;
 
-    [Header("Scene")]
-    [SerializeField] private Player player;
+    [Header("Player spawning")]
+    [SerializeField] private Vector3 playerSpawnPosition;
 
     [Header("Enemy spawning")]
     [SerializeField, Min(0.05f)] private float spawnInterval = 1f;
@@ -25,6 +26,7 @@ public sealed class GameEntryPoint : MonoBehaviour
     {
         ValidateSettings();
 
+        var player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
         var enemiesContainer = new GameObject("Enemies").transform;
 
         enemyFactory = new EnemyFactory(
@@ -57,8 +59,8 @@ public sealed class GameEntryPoint : MonoBehaviour
 
     private void ValidateSettings()
     {
-        if (player == null)
-            throw new MissingReferenceException("GameEntryPoint: Player is not assigned.");
+        if (playerPrefab == null)
+            throw new MissingReferenceException("GameEntryPoint: Player Prefab is not assigned.");
 
         if (enemyPrefab == null)
             throw new MissingReferenceException("GameEntryPoint: Enemy Prefab is not assigned.");
