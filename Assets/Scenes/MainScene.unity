@@ -10433,25 +10433,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13e86c8ab6b4eec8edcf24a10df1004, type: 3}
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::GameEntryPoint
+  playerPrefab: {fileID: 5548594435491566562, guid: 14b34d3c4d8894843b032a425e9b0aba, type: 3}
   enemyPrefab: {fileID: 76077927050037229, guid: fd84f134459a0f945a8da7e91e05582a, type: 3}
-  player: {fileID: 2100000003}
+  playerSpawnPosition: {x: 0, y: 0, z: 0}
   spawnInterval: 1
   minSpawnRadius: 6
   maxSpawnRadius: 10
   maxAliveEnemies: 30
   initialPoolSize: 10
   maxPoolSize: 50
---- !u!114 &2100000003 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5548594435491566562, guid: 14b34d3c4d8894843b032a425e9b0aba, type: 3}
-  m_PrefabInstance: {fileID: 6048203823285619590}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dd3eeecbdd24904c9601540597be4ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
