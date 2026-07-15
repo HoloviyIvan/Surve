@@ -18,24 +18,12 @@ public sealed class GameEntryPoint : MonoBehaviour
     [SerializeField, Min(0)] private int initialPoolSize = 10;
     [SerializeField, Min(1)] private int maxPoolSize = 50;
 
-    [Header("Scene migration")]
-    [SerializeField] private bool removeEnemiesPlacedOnScene = true;
-
     private EnemyFactory enemyFactory;
     private EnemySpawner enemySpawner;
 
     private void Awake()
     {
         ValidateSettings();
-
-        if (removeEnemiesPlacedOnScene)
-            RemoveSceneEnemies();
-
-        if (player == null)
-            player = FindFirstObjectByType<Player>();
-
-        if (player == null)
-            throw new MissingReferenceException("GameEntryPoint: Player was not found on the scene.");
 
         var enemiesContainer = new GameObject("Enemies").transform;
 
@@ -67,15 +55,11 @@ public sealed class GameEntryPoint : MonoBehaviour
         enemyFactory?.Dispose();
     }
 
-    private void RemoveSceneEnemies()
-    {
-        var sceneEnemies = FindObjectsByType<Enemy>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        foreach (var enemy in sceneEnemies)
-            Destroy(enemy.gameObject);
-    }
-
     private void ValidateSettings()
     {
+        if (player == null)
+            throw new MissingReferenceException("GameEntryPoint: Player is not assigned.");
+
         if (enemyPrefab == null)
             throw new MissingReferenceException("GameEntryPoint: Enemy Prefab is not assigned.");
 
