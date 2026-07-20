@@ -8,15 +8,27 @@ public class Character : MonoBehaviour
     
     public bool IsDead => Health <= 0;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        Health = maxHealth;
+        RestoreHealth();
     }
 
     public void TakeDamage(float damage)
     {
+        if (IsDead)
+            return;
+
         Health -= damage;
         Health = Mathf.Clamp(Health, 0, maxHealth);
         Debug.Log("health changed: " + damage + ", health: " + Health +", " + name);
+
+        if (IsDead)
+            OnDeath();
+    }
+
+    public void RestoreHealth() => Health = maxHealth;
+
+    protected virtual void OnDeath()
+    {
     }
 }

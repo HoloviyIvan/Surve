@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Player : Character
@@ -7,9 +7,13 @@ public class Player : Character
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     
-    [SerializeField] private List<Enemy> enemies;
-
     private float shootTimer;
+    private Func<Vector3, Enemy> findClosestEnemy;
+
+    public void Initialize(Func<Vector3, Enemy> enemyProvider)
+    {
+        findClosestEnemy = enemyProvider;
+    }
 
     private void Update()
     {
@@ -25,32 +29,21 @@ public class Player : Character
 
     private void Shoot()
     {
+        if (findClosestEnemy == null)
+            return;
+
         shootTimer += Time.deltaTime;
         if (shootTimer >= shootInterval)
         {
-            shootTimer = 0;
+            var closestEnemy = findClosestEnemy(transform.position);
+            if (closestEnemy == null)
+                return;
+
+            shootTimer = 0f;
             var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             var rBody = bullet.GetComponent<Rigidbody2D>();
-            var closestEnemy = FindClosesEnemy(); 
             var direction = (closestEnemy.transform.position - transform.position).normalized;
             rBody.AddForce(direction * bulletSpeed);
         }
-    }
-
-    private Enemy FindClosesEnemy()
-    {
-        Enemy closestEnemy = null;
-        var minDistance = float.MaxValue;
-        
-        foreach (var enemy in enemies)
-        {
-            var distance = (enemy.transform.position - transform.position).sqrMagnitude;
-            if (distance < minDistance)
-            {
-                closestEnemy = enemy;
-                minDistance = distance;
-            }
-        }
-        return closestEnemy;
     }
 }

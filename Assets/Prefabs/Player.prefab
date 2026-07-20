@@ -112,12 +112,6 @@ MonoBehaviour:
   shootInterval: 1
   bulletPrefab: {fileID: 986088230699236112, guid: 2d46ae580bc829440a7c5da88f8a2d74, type: 3}
   bulletSpeed: 400
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!50 &4898923782191703986
 Rigidbody2D:
   serializedVersion: 5
