@@ -15,15 +15,21 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (IsDead)
+        if (IsDead || damage <= 0f)
             return;
 
-        Health -= damage;
-        Health = Mathf.Clamp(Health, 0, maxHealth);
-        Debug.Log("health changed: " + damage + ", health: " + Health +", " + name);
+        Health = Mathf.Max(Health - damage, 0f);
 
         if (IsDead)
             OnDeath();
+    }
+
+    public void Heal(float amount)
+    {
+        if (IsDead || amount <= 0f)
+            return;
+
+        Health = Mathf.Min(Health + amount, maxHealth);
     }
 
     public void RestoreHealth() => Health = maxHealth;

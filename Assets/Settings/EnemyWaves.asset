@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a546bd44bb37465ab4dc5cd7be49da96, type: 3}
+  m_Name: EnemyWaves
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWaveSettings
+  <Waves>k__BackingField:
+  - <Duration>k__BackingField: 20
+    <SpawnInterval>k__BackingField: 1.2
+    <EnemiesPerSpawn>k__BackingField: 1
+    <MaxAliveEnemies>k__BackingField: 10
+    <BreakDuration>k__BackingField: 5
+    <WaitForEnemiesCleared>k__BackingField: 1
+  - <Duration>k__BackingField: 30
+    <SpawnInterval>k__BackingField: 0.8
+    <EnemiesPerSpawn>k__BackingField: 2
+    <MaxAliveEnemies>k__BackingField: 20
+    <BreakDuration>k__BackingField: 5
+    <WaitForEnemiesCleared>k__BackingField: 1
+  - <Duration>k__BackingField: 45
+    <SpawnInterval>k__BackingField: 0.5
+    <EnemiesPerSpawn>k__BackingField: 3
+    <MaxAliveEnemies>k__BackingField: 35
+    <BreakDuration>k__BackingField: 3
+    <WaitForEnemiesCleared>k__BackingField: 0
+  <LoopLastWave>k__BackingField: 1

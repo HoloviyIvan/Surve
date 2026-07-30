@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7e18a90f9e4f46b3fa54be998d15b1, type: 3}
+  m_Name: GamePrefabs
+  m_EditorClassIdentifier: Assembly-CSharp::GamePrefabs
+  <Player>k__BackingField: {fileID: 5548594435491566562, guid: 14b34d3c4d8894843b032a425e9b0aba, type: 3}
+  <Enemy>k__BackingField: {fileID: 76077927050037229, guid: fd84f134459a0f945a8da7e91e05582a, type: 3}
+  <Projectile>k__BackingField: {fileID: 6390532361545055361, guid: 2d46ae580bc829440a7c5da88f8a2d74, type: 3}
+  <StartingWeapons>k__BackingField:
+  - {fileID: 54003, guid: be1f2a6e961245c79e23920492137fa7, type: 3}

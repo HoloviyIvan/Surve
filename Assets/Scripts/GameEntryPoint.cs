@@ -2,49 +2,66 @@ using UnityEngine;
 
 public sealed class GameEntryPoint : MonoBehaviour
 {
-    [Header("Prefabs")]
-    [SerializeField] private Player playerPrefab;
-    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private PrefabProvider prefabProvider;
+    [SerializeField] private CameraFollower cameraFollower;
 
     [Header("Player spawning")]
     [SerializeField] private Vector3 playerSpawnPosition;
 
-    [Header("Enemy spawning")]
-    [SerializeField, Min(0.05f)] private float spawnInterval = 1f;
+    [Header("Enemy waves")]
+    [SerializeField] private EnemyWaveSettings enemyWaveSettings;
     [SerializeField, Min(0f)] private float minSpawnRadius = 6f;
     [SerializeField, Min(0.1f)] private float maxSpawnRadius = 10f;
-    [SerializeField, Min(1)] private int maxAliveEnemies = 30;
 
-    [Header("Pool")]
-    [SerializeField, Min(0)] private int initialPoolSize = 10;
-    [SerializeField, Min(1)] private int maxPoolSize = 50;
+    [Header("Enemy pool")]
+    [SerializeField, Min(0)] private int initialEnemyPoolSize = 10;
+    [SerializeField, Min(1)] private int maxEnemyPoolSize = 50;
+
+    [Header("Projectile pool")]
+    [SerializeField, Min(0)] private int initialProjectilePoolSize = 20;
+    [SerializeField, Min(1)] private int maxProjectilePoolSize = 100;
 
     private EnemyFactory enemyFactory;
+    private ProjectileFactory projectileFactory;
     private EnemySpawner enemySpawner;
 
     private void Awake()
     {
         ValidateSettings();
+        var player = Instantiate(prefabProvider.GetPlayer(), playerSpawnPosition, Quaternion.identity);
+        cameraFollower.Initialize(player.transform);
 
-        var player = Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
         var enemiesContainer = new GameObject("Enemies").transform;
+        var projectilesContainer = new GameObject("Projectiles").transform;
 
         enemyFactory = new EnemyFactory(
-            enemyPrefab,
+            prefabProvider.GetEnemy(),
             player.transform,
             enemiesContainer,
-            initialPoolSize,
-            maxPoolSize);
+            initialEnemyPoolSize,
+            maxEnemyPoolSize);
 
-        player.Initialize(enemyFactory.FindClosest);
+        projectileFactory = new ProjectileFactory(
+            prefabProvider.GetProjectile(),
+            projectilesContainer,
+            initialProjectilePoolSize,
+            maxProjectilePoolSize);
+
+        var weaponController = player.GetComponent<WeaponController>();
+        if (weaponController == null)
+            throw new MissingComponentException("Player prefab must contain a WeaponController.");
+
+        weaponController.Initialize(enemyFactory.FindClosest, projectileFactory);
+        var startingWeapons = prefabProvider.GetStartingWeapons();
+        for (var i = 0; i < startingWeapons.Length; i++)
+            weaponController.Equip(startingWeapons[i]);
 
         enemySpawner = new EnemySpawner(
             enemyFactory,
             player.transform,
-            spawnInterval,
+            enemyWaveSettings,
             minSpawnRadius,
-            maxSpawnRadius,
-            maxAliveEnemies);
+            maxSpawnRadius);
     }
 
     private void Update()
@@ -54,21 +71,32 @@ public sealed class GameEntryPoint : MonoBehaviour
 
     private void OnDestroy()
     {
+        projectileFactory?.Dispose();
         enemyFactory?.Dispose();
     }
 
     private void ValidateSettings()
     {
-        if (playerPrefab == null)
-            throw new MissingReferenceException("GameEntryPoint: Player Prefab is not assigned.");
+        if (prefabProvider == null)
+            throw new MissingReferenceException("GameEntryPoint: Prefab Provider is not assigned.");
 
-        if (enemyPrefab == null)
-            throw new MissingReferenceException("GameEntryPoint: Enemy Prefab is not assigned.");
+        if (cameraFollower == null)
+            throw new MissingReferenceException("GameEntryPoint: Camera Follower is not assigned.");
+
+        prefabProvider.Validate();
+
+        if (enemyWaveSettings == null)
+            throw new MissingReferenceException("GameEntryPoint: Enemy Wave Settings are not assigned.");
+
+        enemyWaveSettings.Validate();
 
         if (maxSpawnRadius < minSpawnRadius)
             maxSpawnRadius = minSpawnRadius;
 
-        if (maxPoolSize < initialPoolSize)
-            maxPoolSize = initialPoolSize;
+        if (maxEnemyPoolSize < initialEnemyPoolSize)
+            maxEnemyPoolSize = initialEnemyPoolSize;
+
+        if (maxProjectilePoolSize < initialProjectilePoolSize)
+            maxProjectilePoolSize = initialProjectilePoolSize;
     }
 }

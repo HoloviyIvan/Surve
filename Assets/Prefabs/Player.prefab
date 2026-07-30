@@ -14,7 +14,10 @@ GameObject:
   - component: {fileID: 4898923782191703986}
   - component: {fileID: 3012411114513332434}
   - component: {fileID: 6260464689443719297}
-  m_Layer: 0
+  - component: {fileID: 7812524056375729620}
+  - component: {fileID: 7812524056375729621}
+  - component: {fileID: 7812524056375729622}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -109,9 +112,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   maxHealth: 100
   moveSpeed: 5
-  shootInterval: 1
-  bulletPrefab: {fileID: 986088230699236112, guid: 2d46ae580bc829440a7c5da88f8a2d74, type: 3}
-  bulletSpeed: 400
+--- !u!114 &7812524056375729620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261671759894678291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7bce9d3fda42ffac49615603483b84, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  ownerDamageReceiver: {fileID: 7812524056375729621}
+--- !u!114 &7812524056375729621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261671759894678291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d989c805d364d6ea60db5f68cbd4fec, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  owner: {fileID: 5548594435491566562}
+  team: 0
+  damageFlash: {fileID: 7812524056375729622}
+--- !u!114 &7812524056375729622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261671759894678291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d627706a33a64ae69b57828c52d69570, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  targetRenderer: {fileID: 280395080123200554}
+  flashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  duration: 0.12
 --- !u!50 &4898923782191703986
 Rigidbody2D:
   serializedVersion: 5

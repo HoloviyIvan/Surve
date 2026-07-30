@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 469834949694611260}
   - component: {fileID: 2004998335625723427}
   - component: {fileID: 8086654305988675751}
-  m_Layer: 0
+  - component: {fileID: 6719527253360994376}
+  - component: {fileID: 6719527253360994377}
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -123,6 +125,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damager
   damage: 1
+  sourceTeam: 1
+--- !u!114 &6719527253360994376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5379171081123494147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d989c805d364d6ea60db5f68cbd4fec, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  owner: {fileID: 76077927050037229}
+  team: 1
+  damageFlash: {fileID: 6719527253360994377}
+--- !u!114 &6719527253360994377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5379171081123494147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d627706a33a64ae69b57828c52d69570, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  targetRenderer: {fileID: 5679936383965199284}
+  flashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  duration: 0.12
 --- !u!50 &469834949694611260
 Rigidbody2D:
   serializedVersion: 5

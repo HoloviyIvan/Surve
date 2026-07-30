@@ -1,18 +1,18 @@
-using System;
 using UnityEngine;
 
 public class Damager : MonoBehaviour
 {
     [SerializeField] private float damage;
+    [SerializeField] private CombatTeam sourceTeam;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var hasHealth = collision.TryGetComponent<Character>(out var character);
-        var otherHealth = !collision.CompareTag(tag);
-        
-        if (hasHealth && otherHealth)
-        {
-            character.TakeDamage(damage);
-        }
+        if (!collision.TryGetComponent<DamageReceiver>(out var receiver))
+            return;
+
+        if (receiver.Team == sourceTeam)
+            return;
+
+        receiver.TakeDamage(damage);
     }
 }
