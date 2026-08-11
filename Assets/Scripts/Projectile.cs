@@ -12,8 +12,9 @@ public abstract class Projectile : MonoBehaviour
     private bool isActive;
 
     protected ProjectileShotData ShotData { get; private set; }
+    protected Rigidbody2D Body => body;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         body = GetComponent<Rigidbody2D>();
     }
@@ -34,8 +35,18 @@ public abstract class Projectile : MonoBehaviour
         OnLaunched();
     }
 
+    public void SetSpawnPosition(Vector3 position)
+    {
+        body.position = position;
+        transform.SetPositionAndRotation(position, Quaternion.identity);
+    }
+
     private void Update()
     {
+        if (!isActive)
+            return;
+
+        OnTick(Time.deltaTime);
         if (!isActive)
             return;
 
@@ -73,6 +84,10 @@ public abstract class Projectile : MonoBehaviour
     }
 
     protected virtual void OnResetState()
+    {
+    }
+
+    protected virtual void OnTick(float deltaTime)
     {
     }
 

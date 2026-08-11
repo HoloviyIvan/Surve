@@ -37,6 +37,12 @@ public sealed class DamageFlash : MonoBehaviour
         remainingTime = duration;
     }
 
+    private void OnEnable()
+    {
+        remainingTime = 0f;
+        RestoreColor();
+    }
+
     private void OnDisable()
     {
         remainingTime = 0f;

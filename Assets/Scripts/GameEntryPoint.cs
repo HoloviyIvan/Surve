@@ -29,6 +29,7 @@ public sealed class GameEntryPoint : MonoBehaviour
     {
         ValidateSettings();
         var player = Instantiate(prefabProvider.GetPlayer(), playerSpawnPosition, Quaternion.identity);
+        player.gameObject.SetActive(false);
         cameraFollower.Initialize(player.transform);
 
         var enemiesContainer = new GameObject("Enemies").transform;
@@ -62,6 +63,8 @@ public sealed class GameEntryPoint : MonoBehaviour
             enemyWaveSettings,
             minSpawnRadius,
             maxSpawnRadius);
+
+        player.gameObject.SetActive(true);
     }
 
     private void Update()

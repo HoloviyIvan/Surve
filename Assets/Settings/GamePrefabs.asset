@@ -16,4 +16,4 @@ MonoBehaviour:
   <Enemy>k__BackingField: {fileID: 76077927050037229, guid: fd84f134459a0f945a8da7e91e05582a, type: 3}
   <Projectile>k__BackingField: {fileID: 6390532361545055361, guid: 2d46ae580bc829440a7c5da88f8a2d74, type: 3}
   <StartingWeapons>k__BackingField:
-  - {fileID: 54003, guid: be1f2a6e961245c79e23920492137fa7, type: 3}
+  - {fileID: 55003, guid: a40a44e63d104c978123d86bc889daef, type: 3}

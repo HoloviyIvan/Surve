@@ -7,6 +7,7 @@ public sealed class DamageReceiver : MonoBehaviour, IDamageable
     [SerializeField] private DamageFlash damageFlash;
 
     public CombatTeam Team => team;
+    public bool IsAlive => owner != null && !owner.IsDead && gameObject.activeInHierarchy;
 
     public void TakeDamage(float damage)
     {
@@ -14,7 +15,8 @@ public sealed class DamageReceiver : MonoBehaviour, IDamageable
             return;
 
         owner.TakeDamage(damage);
-        damageFlash?.Play();
+        if (!owner.IsDead && gameObject.activeInHierarchy)
+            damageFlash?.Play();
     }
 
     private void OnValidate()
