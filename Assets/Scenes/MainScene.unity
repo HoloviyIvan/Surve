@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -256,6 +257,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e2c8e0a7284bfa8d3892249290fa83, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollower
+  deadZoneSize: {x: 3, y: 2}
+  smoothTime: 0.2
+  maxSpeed: 20
+  snapOnInitialize: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -8109,6 +8126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2100000001}
   - component: {fileID: 2100000002}
+  - component: {fileID: 2100000003}
   m_Layer: 0
   m_Name: GameEntryPoint
   m_TagString: Untagged
@@ -8143,15 +8161,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13e86c8ab6b4eec8edcf24a10df1004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameEntryPoint
-  playerPrefab: {fileID: 5548594435491566562, guid: 14b34d3c4d8894843b032a425e9b0aba, type: 3}
-  enemyPrefab: {fileID: 76077927050037229, guid: fd84f134459a0f945a8da7e91e05582a, type: 3}
+  prefabProvider: {fileID: 2100000003}
+  cameraFollower: {fileID: 519420033}
   playerSpawnPosition: {x: 0, y: 0, z: 0}
-  spawnInterval: 1
+  enemyWaveSettings: {fileID: 11400000, guid: d5ba247045f24c0ba7d6e0a91a23b965, type: 2}
   minSpawnRadius: 6
   maxSpawnRadius: 10
-  maxAliveEnemies: 30
-  initialPoolSize: 10
-  maxPoolSize: 50
+  initialEnemyPoolSize: 10
+  maxEnemyPoolSize: 50
+  initialProjectilePoolSize: 20
+  maxProjectilePoolSize: 100
+--- !u!114 &2100000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ce40ff02b14120b6f35e369e488ddd, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::PrefabProvider
+  storage: {fileID: 11400000, guid: 67b0bb4baccc48e4be05cad322dc5d92, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
